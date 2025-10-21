@@ -14,4 +14,20 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private String name;
+
+    private String email;
+
+    private String password;
+
+    private String nickname;
+
+    // role - 어드민 / 일반 유저
+    // 프로필 이미지 할까 말까
+    // userStatus - 휴먼,탙퇴 이런거
+    // oauth2 관련
+
+    // 로그인 providerType 할까 말까 ex. native / google / kakao
+
 }
