@@ -9,9 +9,9 @@ public interface UserService {
 
     User verifyUser(String email);
 
-    Boolean updateUser(UserUpdateDto updateDto, String username);
+    Boolean updateUser(UserUpdateDto updateDto, String email);
 
-    UserResDto findUser(String username);
+    UserResDto findUser(String email);
 
     void duplicateUser(String email);
 }

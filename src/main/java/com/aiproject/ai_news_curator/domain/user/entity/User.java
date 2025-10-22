@@ -1,5 +1,6 @@
 package com.aiproject.ai_news_curator.domain.user.entity;
 
+import com.aiproject.ai_news_curator.domain.user.dto.UserUpdateDto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -30,4 +31,8 @@ public class User {
 
     // 로그인 providerType 할까 말까 ex. native / google / kakao
 
+    public void update(UserUpdateDto userUpdateDto) {
+        if (userUpdateDto.getNickname() != null)
+            this.nickname = userUpdateDto.getNickname();
+    }
 }

@@ -4,6 +4,8 @@ import com.aiproject.ai_news_curator.domain.user.dto.UserResDto;
 import com.aiproject.ai_news_curator.domain.user.dto.UserUpdateDto;
 import com.aiproject.ai_news_curator.domain.user.entity.User;
 import com.aiproject.ai_news_curator.domain.user.repository.JpaUserRepository;
+import com.aiproject.ai_news_curator.global.exception.CustomLogicException;
+import com.aiproject.ai_news_curator.global.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,26 +21,35 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     @Override
     public User createUser(User user) {
-        return null;
+        duplicateUser(user.getEmail());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepository.save(user);
     }
 
     @Override
-    public Boolean updateUser(UserUpdateDto updateDto, String username) {
-        return null;
+    public Boolean updateUser(UserUpdateDto updateDto, String email) {
+        User user = verifyUser(email);
+        user.update(updateDto);
+        return true;
     }
 
     @Override
-    public UserResDto findUser(String username) {
-        return null;
+    public UserResDto findUser(String email) {
+        User user = verifyUser(email);
+        return UserResDto.builder().user(user).build();
     }
 
     @Override
     public User verifyUser(String email) {
-        return null;
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new CustomLogicException(ExceptionCode.USER_NONE));
     }
 
     @Override
     public void duplicateUser(String email) {
-
+        userRepository.findByEmail(email)
+                .ifPresent(user -> {
+                    throw new CustomLogicException(ExceptionCode.USER_DUPLICATED);
+                });
     }
 }
