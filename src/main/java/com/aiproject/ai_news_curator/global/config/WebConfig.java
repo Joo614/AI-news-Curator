@@ -17,5 +17,4 @@ public class WebConfig implements WebMvcConfigurer {
                         "Access-Control-Allow-Credentials")
                 .allowCredentials(true);
     }
-
 }

@@ -10,5 +10,4 @@ public class CustomLogicException extends RuntimeException {
         super(exceptionCode.getMessage());
         this.exceptionCode = exceptionCode;
     }
-
 }
