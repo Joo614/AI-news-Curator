@@ -7,6 +7,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/user")
 @Validated
-@Tag(name = "01. [유저]")
 public class UserController {
 }

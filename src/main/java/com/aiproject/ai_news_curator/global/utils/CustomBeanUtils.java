@@ -26,5 +26,4 @@ public class CustomBeanUtils<T> {
 
         return destination;
     }
-
 }

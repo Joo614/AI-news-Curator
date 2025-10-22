@@ -17,5 +17,4 @@ public class ErrorResponder {
         response.setStatus(status.value());
         response.getWriter().write(gson.toJson(errorResponse, ErrorResponse.class));
     }
-
 }
