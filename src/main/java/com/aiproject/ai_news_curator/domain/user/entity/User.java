@@ -22,8 +22,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-
     private String email;
 
     private String password;
@@ -34,16 +32,13 @@ public class User {
     @Column(nullable = true, length = 20)
     private ProviderType providerType;
 
+    @Builder.Default
     @Enumerated(value = EnumType.STRING)
     @Column(nullable = true, length = 20)
     private UserStatus userStatus = UserStatus.MEMBER_ACTIVE;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Authorities> roles;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = true)
-    private UserRole role;
 
     // 프로필 이미지 할까 말까
     // oauth2 관련
