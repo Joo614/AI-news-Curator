@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
     private final AuthoritiesUtils authoritiesUtils;
 
     @Override
-    public User createUser(UserPostDto userPostDto) {
+    public void createUser(UserPostDto userPostDto) {
         duplicateUser(userPostDto.getEmail());
         User user = User.builder()
             .email(userPostDto.getEmail())
@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
             .build();
         user.setRoles(authoritiesUtils.createAuthorities(user));
 
-        return userRepository.save(user);
+        userRepository.save(user);
     }
 
     @Override
