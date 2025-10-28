@@ -16,15 +16,16 @@ import java.util.stream.Stream;
 
 @Component
 public class AuthoritiesUtils {
-    public static Set<String> ADMINS_EMAIL;
+    private final Set<String> adminEmailSet;
 
-    @Value("${admin.email}")
-    public void setkey(String value) {
-        ADMINS_EMAIL = Set.of(Arrays.stream(value.split(",")).map(String::trim).toArray(String[]::new));
+    public AuthoritiesUtils(@Value("${admin.email}") String adminEmails) {
+        this.adminEmailSet = Set.of(Arrays.stream(adminEmails.split(","))
+            .map(String::trim)
+            .toArray(String[]::new));
     }
 
-    public static List<String> createRoles(String email) {
-        if (ADMINS_EMAIL != null && ADMINS_EMAIL.contains(email)) {
+    public List<String> createRoles(String email) {
+        if (adminEmailSet != null && adminEmailSet.contains(email)) {
             return Stream.of(UserRole.values())
                     .map(UserRole::name)
                     .toList();
@@ -33,7 +34,7 @@ public class AuthoritiesUtils {
         return List.of(UserRole.USER.name());
     }
 
-    public static List<Authorities> createAuthorities(User user) {
+    public List<Authorities> createAuthorities(User user) {
         return createRoles(user.getEmail()).stream()
                 .map(role -> new Authorities(user, role))
                 .toList();

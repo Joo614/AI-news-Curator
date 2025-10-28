@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceImpl implements UserService {
     private final JpaUserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AuthoritiesUtils authoritiesUtils;
 
     @Override
     public User createUser(UserPostDto userPostDto) {
@@ -32,7 +33,7 @@ public class UserServiceImpl implements UserService {
             .nickname(userPostDto.getNickname())
             .providerType(ProviderType.NATIVE)
             .build();
-        user.setRoles(AuthoritiesUtils.createAuthorities(user));
+        user.setRoles(authoritiesUtils.createAuthorities(user));
 
         return userRepository.save(user);
     }
