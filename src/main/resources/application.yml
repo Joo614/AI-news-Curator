@@ -20,9 +20,13 @@ spring:
 jwt:
   secret: randomTestValueItisNotUsedInProdEnv
   expiration: 1800000000 # 200 hours
-#  expiration: 60000 # 1 minutes -> ???? ?? ??? ? ??
+#  expiration: 6000 # 6 seconds -> ???? ?? ??? ? ??
   refresh:
     expiration: 604800000 # 7 days
 
 admin:
   email: test@gmail.com,test1@gmail.com
+
+logging:
+  level:
+    org.springframework.web.servlet.resource: ERROR
