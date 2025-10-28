@@ -34,8 +34,8 @@ public class CookieUtils {
         cookie.setMaxAge(10000000);
         response.addCookie(cookie);*/
 		ResponseCookie cookie = ResponseCookie.from(name, value)
-			.sameSite("None")
-			.secure(true)
+			.sameSite("Lax") // TODO: 배포 시 HTTPS 적용 후 None로 변경
+			.secure(false) // TODO: 배포 시 HTTPS 적용 후 true로 변경
 			.path("/")
 			.maxAge(maxAge)
 			.httpOnly(true)

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -13,6 +14,7 @@ import com.aiproject.ai_news_curator.auth.dto.LoginDto;
 import com.aiproject.ai_news_curator.auth.service.RefreshService;
 import com.aiproject.ai_news_curator.auth.token.AuthToken;
 import com.aiproject.ai_news_curator.auth.token.AuthTokenProvider;
+import com.aiproject.ai_news_curator.auth.utils.CookieUtils;
 import com.aiproject.ai_news_curator.domain.user.entity.User;
 import com.aiproject.ai_news_curator.global.exception.CustomLogicException;
 import com.aiproject.ai_news_curator.global.exception.ExceptionCode;
@@ -21,6 +23,7 @@ import com.google.gson.Gson;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -71,10 +74,14 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 			user.getRoles().stream().map(role -> role.getRole().name()).collect(Collectors.toList()));
 		AuthToken refreshToken = authTokenProvider.createRefreshToken(user.getEmail());
 
-		response.addHeader("Authorization", "Bearer " + accessToken.getToken());
-		response.addHeader("RefreshToken", "Bearer " + refreshToken.getToken());
-
 		refreshService.saveRefreshToken(user.getEmail(), refreshToken);
+
+		// access token 헤더에 추가
+		response.addHeader("Authorization", "Bearer " + accessToken.getToken());
+
+		// refresh token 쿠키에 추가
+		int refreshTokenMaxAge = 604800; // 7일 (초 단위)
+		CookieUtils.addCookie(response, "RefreshToken", refreshToken.getToken(), refreshTokenMaxAge);
 
 		getSuccessHandler().onAuthenticationSuccess(request, response, authResult);
 	}
