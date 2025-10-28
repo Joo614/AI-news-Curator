@@ -6,7 +6,7 @@ import com.aiproject.ai_news_curator.domain.user.dto.UserUpdateDto;
 import com.aiproject.ai_news_curator.domain.user.entity.User;
 
 public interface UserService {
-    User createUser(UserPostDto userPostDto);
+    void createUser(UserPostDto userPostDto);
 
     User verifyUser(String email);
 

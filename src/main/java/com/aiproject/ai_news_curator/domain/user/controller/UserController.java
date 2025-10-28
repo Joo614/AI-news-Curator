@@ -2,6 +2,7 @@ package com.aiproject.ai_news_curator.domain.user.controller;
 
 import java.net.URI;
 
+import com.aiproject.ai_news_curator.auth.entity.UserPrincipal;
 import com.aiproject.ai_news_curator.domain.user.dto.UserPostDto;
 import com.aiproject.ai_news_curator.domain.user.dto.UserResDto;
 import com.aiproject.ai_news_curator.domain.user.dto.UserUpdateDto;
@@ -22,21 +23,21 @@ public class UserController {
 
     // 회원가입
     @PostMapping("/signup")
-    public ResponseEntity signup(@Valid @RequestBody UserPostDto userPostDto) {
+    public ResponseEntity<Void> signup(@Valid @RequestBody UserPostDto userPostDto) {
         userService.createUser(userPostDto);
         return ResponseEntity.created(URI.create("/user")).build();
     }
 
     // 유저 정보 수정 - 닉네임
-    @PostMapping()
-    public ResponseEntity<Boolean> updateUser(@Valid @RequestBody UserUpdateDto userUpdateDto) {
-        // 수정 됐는지 아닌지만 boolean으로 res
-        return null;
+    @PatchMapping
+    public ResponseEntity<Boolean> updateUser(@Valid @RequestBody UserUpdateDto userUpdateDto,
+        @AuthenticationPrincipal UserPrincipal principal) {
+        return ResponseEntity.ok(userService.updateUser(userUpdateDto, principal.getUsername()));
     }
 
     // 유저 정보 조회
-//    @GetMapping("/me")
-//        public ResponseEntity<UserResDto> findMe(@AuthenticationPrincipal UserPrincipal principal) {
-//        return null;
-//    }
+   @GetMapping("/me")
+       public ResponseEntity<UserResDto> findMe(@AuthenticationPrincipal UserPrincipal principal) {
+       return ResponseEntity.ok(userService.findUser(principal.getUsername()));
+   }
 }

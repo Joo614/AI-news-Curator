@@ -27,12 +27,6 @@ public class CookieUtils {
 	}
 
 	public static void addCookie(HttpServletResponse response, String name, String value, int maxAge) {
-       /* Cookie cookie = new Cookie(name, value);
-        cookie.setPath("/");
-        cookie.setSecure(true);
-        cookie.setHttpOnly(true);
-        cookie.setMaxAge(10000000);
-        response.addCookie(cookie);*/
 		ResponseCookie cookie = ResponseCookie.from(name, value)
 			.sameSite("Lax") // TODO: 배포 시 HTTPS 적용 후 None로 변경
 			.secure(false) // TODO: 배포 시 HTTPS 적용 후 true로 변경
