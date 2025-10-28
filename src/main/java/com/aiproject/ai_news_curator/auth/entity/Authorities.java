@@ -17,8 +17,8 @@ public class Authorities extends Auditable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_email")
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Enumerated(value = EnumType.STRING)

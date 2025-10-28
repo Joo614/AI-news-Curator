@@ -1,5 +1,7 @@
 package com.aiproject.ai_news_curator.domain.user.controller;
 
+import java.net.URI;
+
 import com.aiproject.ai_news_curator.domain.user.dto.UserPostDto;
 import com.aiproject.ai_news_curator.domain.user.dto.UserResDto;
 import com.aiproject.ai_news_curator.domain.user.dto.UserUpdateDto;
@@ -21,8 +23,8 @@ public class UserController {
     // 회원가입
     @PostMapping("/signup")
     public ResponseEntity signup(@Valid @RequestBody UserPostDto userPostDto) {
-
-        return null;
+        userService.createUser(userPostDto);
+        return ResponseEntity.created(URI.create("/user")).build();
     }
 
     // 유저 정보 수정 - 닉네임
