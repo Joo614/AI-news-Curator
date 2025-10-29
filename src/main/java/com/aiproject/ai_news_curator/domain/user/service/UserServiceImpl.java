@@ -1,5 +1,9 @@
 package com.aiproject.ai_news_curator.domain.user.service;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.aiproject.ai_news_curator.auth.utils.AuthoritiesUtils;
 import com.aiproject.ai_news_curator.domain.user.dto.UserPostDto;
 import com.aiproject.ai_news_curator.domain.user.dto.UserResDto;
@@ -9,11 +13,9 @@ import com.aiproject.ai_news_curator.domain.user.enums.ProviderType;
 import com.aiproject.ai_news_curator.domain.user.repository.JpaUserRepository;
 import com.aiproject.ai_news_curator.global.exception.CustomLogicException;
 import com.aiproject.ai_news_curator.global.exception.ExceptionCode;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional

@@ -4,10 +4,9 @@ import lombok.Getter;
 
 @Getter
 public enum ProviderType {
-    NATIVE("native"),
-    GOOGLE("google"),
-    KAKAO("kakao"),
-    LINE("Line");
+    NATIVE("native");
+    // GOOGLE("google"),
+    // KAKAO("kakao");
 
     ProviderType(String providerType) {
         this.providerType = providerType;
