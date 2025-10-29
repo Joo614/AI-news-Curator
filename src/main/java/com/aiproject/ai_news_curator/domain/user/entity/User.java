@@ -5,6 +5,8 @@ import com.aiproject.ai_news_curator.domain.user.dto.UserUpdateDto;
 import com.aiproject.ai_news_curator.domain.user.enums.ProviderType;
 import com.aiproject.ai_news_curator.domain.user.enums.UserRole;
 import com.aiproject.ai_news_curator.domain.user.enums.UserStatus;
+import com.aiproject.ai_news_curator.global.audit.Auditable;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,7 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Table(name = "users")
-public class User {
+public class User extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
