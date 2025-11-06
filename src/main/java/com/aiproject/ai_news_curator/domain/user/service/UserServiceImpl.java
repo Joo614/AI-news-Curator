@@ -1,21 +1,20 @@
 package com.aiproject.ai_news_curator.domain.user.service;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.aiproject.ai_news_curator.auth.utils.AuthoritiesUtils;
+import com.aiproject.ai_news_curator.domain.user.dto.NicknameUpdateDto;
+import com.aiproject.ai_news_curator.domain.user.dto.PasswordUpdateDto;
 import com.aiproject.ai_news_curator.domain.user.dto.UserPostDto;
 import com.aiproject.ai_news_curator.domain.user.dto.UserResDto;
-import com.aiproject.ai_news_curator.domain.user.dto.UserUpdateDto;
 import com.aiproject.ai_news_curator.domain.user.entity.User;
 import com.aiproject.ai_news_curator.domain.user.enums.ProviderType;
 import com.aiproject.ai_news_curator.domain.user.repository.JpaUserRepository;
 import com.aiproject.ai_news_curator.global.exception.CustomLogicException;
 import com.aiproject.ai_news_curator.global.exception.ExceptionCode;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
@@ -41,9 +40,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Boolean updateUser(UserUpdateDto updateDto, String email) {
+    public Boolean updateNickname(NicknameUpdateDto nicknameUpdateDto, String email) {
         User user = verifyUser(email);
-        user.update(updateDto);
+        user.updateNickname(nicknameUpdateDto.getNickname());
+        return true;
+    }
+
+    @Override
+    public Boolean updatePassword(PasswordUpdateDto passwordUpdateDto, String email) {
+        User user = verifyUser(email);
+        user.updatePassword(passwordEncoder.encode(passwordUpdateDto.getPassword()));
         return true;
     }
 

@@ -1,12 +1,10 @@
 package com.aiproject.ai_news_curator.domain.interaction.entity;
 
+import com.aiproject.ai_news_curator.domain.interaction.enums.InteractionType;
+import com.aiproject.ai_news_curator.domain.user.enums.ProviderType;
 import com.aiproject.ai_news_curator.global.audit.Auditable;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,4 +21,8 @@ public class Interaction extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+
+    @Enumerated(value = EnumType.STRING)
+    private InteractionType interactionType;
 }

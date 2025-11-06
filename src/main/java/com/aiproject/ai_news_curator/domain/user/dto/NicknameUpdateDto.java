@@ -1,6 +1,6 @@
 package com.aiproject.ai_news_curator.domain.user.dto;
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @AllArgsConstructor
@@ -9,7 +9,7 @@ import lombok.*;
 @ToString
 @Builder
 @NoArgsConstructor
-public class UserUpdateDto {
-    @NotNull
+public class NicknameUpdateDto {
+    @NotBlank(message = "닉네임을 입력해주세요.")
     private String nickname;
 }
