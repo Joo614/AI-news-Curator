@@ -10,7 +10,7 @@ import com.aiproject.ai_news_curator.domain.userInterest.service.UserInterestSer
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/userInterest")
+@RequestMapping("/userInterests")
 @Validated
 @RequiredArgsConstructor
 public class UserInterestController {

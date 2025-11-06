@@ -1,8 +1,9 @@
 package com.aiproject.ai_news_curator.domain.user.service;
 
+import com.aiproject.ai_news_curator.domain.user.dto.NicknameUpdateDto;
+import com.aiproject.ai_news_curator.domain.user.dto.PasswordUpdateDto;
 import com.aiproject.ai_news_curator.domain.user.dto.UserPostDto;
 import com.aiproject.ai_news_curator.domain.user.dto.UserResDto;
-import com.aiproject.ai_news_curator.domain.user.dto.UserUpdateDto;
 import com.aiproject.ai_news_curator.domain.user.entity.User;
 
 public interface UserService {
@@ -10,7 +11,8 @@ public interface UserService {
 
     User verifyUser(String email);
 
-    Boolean updateUser(UserUpdateDto updateDto, String email);
+    Boolean updateNickname(NicknameUpdateDto nicknameUpdateDto, String email);
+    Boolean updatePassword(PasswordUpdateDto passwordUpdateDto, String email);
 
     UserResDto findUser(String email);
 

@@ -24,4 +24,7 @@ public class Article extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    // 조회수
+    // 좋아요 수
 }

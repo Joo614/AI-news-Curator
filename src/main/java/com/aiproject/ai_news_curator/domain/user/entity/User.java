@@ -1,12 +1,9 @@
 package com.aiproject.ai_news_curator.domain.user.entity;
 
 import com.aiproject.ai_news_curator.auth.entity.Authorities;
-import com.aiproject.ai_news_curator.domain.user.dto.UserUpdateDto;
 import com.aiproject.ai_news_curator.domain.user.enums.ProviderType;
-import com.aiproject.ai_news_curator.domain.user.enums.UserRole;
 import com.aiproject.ai_news_curator.domain.user.enums.UserStatus;
 import com.aiproject.ai_news_curator.global.audit.Auditable;
-
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -31,12 +28,12 @@ public class User extends Auditable {
     private String nickname;
 
     @Enumerated(value = EnumType.STRING)
-    @Column(nullable = true, length = 20)
+    @Column(nullable = true)
     private ProviderType providerType;
 
     @Builder.Default
     @Enumerated(value = EnumType.STRING)
-    @Column(nullable = true, length = 20)
+    @Column(nullable = true)
     private UserStatus userStatus = UserStatus.MEMBER_ACTIVE;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -51,8 +48,13 @@ public class User extends Auditable {
 //        return this.role.getKey();
 //    }
 
-    public void update(UserUpdateDto userUpdateDto) {
-        if (userUpdateDto.getNickname() != null)
-            this.nickname = userUpdateDto.getNickname();
+    public void updateNickname(String nickname) {
+        if (nickname != null)
+            this.nickname = nickname;
+    }
+
+    public void updatePassword(String encodedPassword) {
+        if (encodedPassword != null)
+            this.password = encodedPassword;
     }
 }
