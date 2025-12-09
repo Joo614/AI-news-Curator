@@ -22,4 +22,6 @@ public class UserInterest extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    // TODO : 키워드랑 연결
 }
